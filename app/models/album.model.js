@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const AlbumSchema = mongoose.Schema({
   title: String,
   artist: String,
-  image: String
+  image: String,
+  listened: Boolean
 }, {
   timestamps: true
 });

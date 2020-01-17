@@ -5,7 +5,10 @@ module.exports = (app) => {
   app.post('/albums', albums.create);
 
   // Retrieve all albums
-  app.get('/albums', albums.findAll);
+  app.get('/albums/:listened', albums.findAll);
+
+  // Update an album's listened field
+  app.put('/albums/:title', albums.update);
 
   // Delete an album with title
   app.delete('/albums/:title', albums.delete);

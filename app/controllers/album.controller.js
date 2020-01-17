@@ -25,7 +25,8 @@ exports.create = (req, res) => {
   const album = new Album({
     title: req.body.title,
     artist: req.body.artist,
-    image: req.body.image
+    image: req.body.image,
+    listened: false
   });
 
   // Save Album in the database
@@ -41,7 +42,7 @@ exports.create = (req, res) => {
 // Retrieve and return all albums from the database
 exports.findAll = (req, res) => {
   // Retrieve and return all albums from the database
-  Album.find().then(albums => {
+  Album.find({ listened: req.params.listened }).then(albums => {
     res.send(albums);
   }).catch(err => {
     res.status(500).send({
@@ -49,6 +50,33 @@ exports.findAll = (req, res) => {
     })
   })
 };
+
+// Update a note identified by the noteId in the request
+exports.update = (req, res) => {
+  // Find note and update it with the request body
+  Album.findOneAndUpdate({title: req.params.title}, {
+      listened: true
+  }, {new: true})
+  .then(album => {
+      if(!album) {
+          return res.status(404).send({
+              message: "Album not found with title " + req.params.title
+          });
+      }
+      res.send(album);
+  }).catch(err => {
+      if(err.kind === 'ObjectId') {
+          return res.status(404).send({
+              message: "Album not found with title " + req.params.title
+          });                
+      }
+      return res.status(500).send({
+          message: "Error updating album with title " + req.params.title
+      });
+  });
+};
+
+
 
 // Delete an album with the specified title in the request
 exports.delete = (req, res) => {
