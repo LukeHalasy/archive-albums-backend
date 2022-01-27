@@ -8,7 +8,10 @@ services:
       - PORT=3000
     depends_on:
       - mongo
+      - redis
 
   mongo:
     image: mongo
 
+  redis:
+    image: redis

@@ -1,6 +1,23 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv').config()
+const session = require('express-session')
+const redis = require('redis')
+
+const REDIS_URL = (process.env.NODE_ENV == "prod") ? process.env.REDIS_URL : "redis://redis:6379";
+const SESSION_SECRET = (process.env.NODE_ENV == "prod") ? process.env.SESSION_SECRET : "secret";
+
+var RedisStore = require('connect-redis')(session)
+
+var redisClient = redis.createClient({
+  url: REDIS_URL,
+  legacyMode: true
+})
+
+redisClient.connect();
+
+redisClient.on('connect', () => console.log('::> Redis Client Connected'));
+redisClient.on('error', (err) => console.log('<:: Redis Client Error', err));
 
 const MONGO_USER = (process.env.NODE_ENV == "prod") ? process.env.MONGO_INITDB_ROOT_USERNAME : "luke";
 const MONGO_PASSWORD = (process.env.NODE_ENV == "prod") ? process.env.MONGO_INITDB_ROOT_PASSWORD : "luke";
@@ -19,6 +36,17 @@ mongoose
 
 
 app.use(express.json());
+app.use(session({
+  store: new RedisStore({client: redisClient}),
+  secret: SESSION_SECRET,
+  cookie: {
+    secure: (process.env.NODE_ENV == "prod") ? true : false, // set to true in prod!
+    resave: false,
+    saveUninitialized: false,
+    httpOnly: true, 
+    maxAge: 6000000 // milliseconds
+  } 
+}))
 app.get('/api/v1', (req, res) => {
   res.send("<h2> Hello Docker Test </h2>")
 });

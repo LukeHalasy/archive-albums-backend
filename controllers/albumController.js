@@ -6,6 +6,8 @@ exports.addAlbum = async(req, res) => {
   /*
   const {title, artist, image, listened} = req.body;
   */
+  
+
   try {
     res.status(201).json({
       status: 'success',

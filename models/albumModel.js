@@ -18,6 +18,11 @@ const albumSchema = new mongoose.Schema({
     type: Boolean,
     require: true,
     default: false
+  },
+  albums: {
+    type: [mongoose.Schema.Types.ObjectId],
+    require: true,
+    default: []
   }
 }, {
   timestamps: true
