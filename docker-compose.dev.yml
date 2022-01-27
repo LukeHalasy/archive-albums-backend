@@ -10,3 +10,7 @@ services:
     environment:
       - NODE_ENV=development
 
+  mongo:
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=luke
+      - MONGO_INITDB_ROOT_PASSWORD=luke
