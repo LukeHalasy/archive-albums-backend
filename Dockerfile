@@ -12,4 +12,5 @@ FROM base as prod
 RUN npm install --only=production
 COPY . ./
 
+EXPOSE 3000
 CMD ["node", "index.js"]
