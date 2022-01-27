@@ -8,6 +8,7 @@ const MONGO_IP = (process.env.NODE_ENV == "prod") ? process.env.MONGO_IP : "mong
 const MONGO_PORT = (process.env.NODE_ENV == "prod") ? process.env.MONGO_PORT : 27017; 
 
 const userRouter = require('./routes/userRoutes');
+const albumsRouter = require('./routes/albumRoutes');
 const app = express();
 
 const mongoURL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`
@@ -23,6 +24,7 @@ app.get('/api/v1', (req, res) => {
 });
 
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/albums", albumsRouter);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`listening on port ${port}`))

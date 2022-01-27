@@ -22,7 +22,8 @@
     "bcryptjs": "^2.4.3",
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
-    "mongoose": "^6.1.8"
+    "mongoose": "^6.1.8",
+    "mongoose-type-url": "^2.1.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
