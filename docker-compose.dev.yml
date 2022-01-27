@@ -1,0 +1,22 @@
+version: "3"
+services:
+  node-app:
+    build: 
+      context: .
+      target: dev
+    volumes:
+      - ./:/app:ro
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+
+  mongo:
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=luke
+      - MONGO_INITDB_ROOT_PASSWORD=luke
+
+    volumes:
+      - mongo-db:/data/db
+
+volumes:
+  mongo-db:

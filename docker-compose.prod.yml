@@ -1,0 +1,12 @@
+version: "3"
+services:
+  node-app:
+    build: 
+      context: .
+      target: prod
+    environment:
+      - NODE_ENV=production
+
+  mongo:
+    env_file: 
+      - ./.env
