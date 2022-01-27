@@ -3,17 +3,17 @@ const Album = require("../models/albumModel")
 const bcrypt = require("bcryptjs")
 
 exports.addAlbum = async(req, res) => {
-  /*
-  const {title, artist, image, listened} = req.body;
-  */
-  
-
   try {
+    // create the album 
+    const album = await Album.create(req.body);
+
+    // add the album to the authenticated users list
+    console.log(req.user);
+    req.user.albums.push(album._id)
+
     res.status(201).json({
       status: 'success',
-      data: {
-        result: "Yepp"
-      }
+      album: album
     })
   } catch(e) {
     console.log(e)
@@ -52,8 +52,16 @@ exports.deleteAll = async(req, res) => {
 
 exports.getAlbums = async(req, res) => {
   try {
+    console.log(req.params)
+    console.log(req.user)
+    const listened = (req.query.listened) ? req.query.listened : 0; // default is not-listened
+    console.log(listened);
+
+    const albums = await Album.find({ _id: { $in: req.user.albums }, listened: listened });
+
     res.status(200).json({
-      status: 'success'
+      status: 'success',
+      albums: albums
     })
   } catch(e) {
     res.status(400).json({

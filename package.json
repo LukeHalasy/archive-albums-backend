@@ -20,10 +20,12 @@
   "homepage": "https://github.com/LukeHalasy/music-to-listen-to-backend#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.1",
     "connect-redis": "^6.0.0",
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
     "express-session": "^1.17.2",
+    "method-override": "^3.0.0",
     "mongoose": "^6.1.8",
     "mongoose-type-url": "^2.1.0",
     "redis": "^4.0.2"

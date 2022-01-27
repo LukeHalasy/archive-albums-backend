@@ -3,6 +3,8 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv').config()
 const session = require('express-session')
 const redis = require('redis')
+const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 
 const REDIS_URL = (process.env.NODE_ENV == "prod") ? process.env.REDIS_URL : "redis://redis:6379";
 const SESSION_SECRET = (process.env.NODE_ENV == "prod") ? process.env.SESSION_SECRET : "secret";
@@ -36,6 +38,9 @@ mongoose
 
 
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true}))
+app.use(methodOverride())
+
 app.use(session({
   store: new RedisStore({client: redisClient}),
   secret: SESSION_SECRET,
