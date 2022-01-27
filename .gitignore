@@ -5,6 +5,7 @@
 .env
 
 # misc
+gcp.secret.json
 .DS_Store
 yarn.lock
 
