@@ -1,4 +1,5 @@
 const Album = require("../models/albumModel")
+const User = require("../models/userModel")
 
 const bcrypt = require("bcryptjs")
 
@@ -25,11 +26,15 @@ exports.addAlbum = async(req, res) => {
 
 exports.deleteAlbum = async(req, res) => {
   try {
-    res.status(201).json({
+    const id = req.params.id
+    const deletedPost = await Album.findByIdAndDelete(id)
+
+    await User.updateOne({ _id: req.user._id },
+      { $pull: { 'albums': id }}
+    );
+
+    res.status(200).json({
       status: 'success',
-      data: {
-        user: newUser
-      }
     })
   } catch(e) {
     console.log(e)
@@ -41,8 +46,15 @@ exports.deleteAlbum = async(req, res) => {
 
 exports.deleteAll = async(req, res) => {
   try {
+    await Album.deleteMany({ _id: { $in: req.user.albums }})
+
+    const user = await User.findById(req.user._id)
+    user.albums = []
+    await user.save();
+
     res.status(200).json({status: 'success'})
   } catch(e) {
+    console.log(e)
     res.status(400).json({
       status: 'fail'
     })
@@ -73,8 +85,13 @@ exports.getAlbums = async(req, res) => {
 
 exports.updateAlbumStatus = async(req, res) => {
   try {
+    const album = await Album.findById(req.params.id)
+    album.listened = req.query.listened;
+    await album.save();
+
     res.status(200).json({
-        status: 'success'
+        status: 'success',
+        album: album
     })   
   } catch(e) {
     res.status(400).json({
