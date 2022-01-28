@@ -35,6 +35,8 @@ const albumsRouter = require('./routes/albumRoutes');
 const app = express();
 
 const mongoURL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`
+console.log(mongoURL);
+
 mongoose
   .connect(mongoURL)
   .then(() => console.log("Succesfully connected to DB"))
