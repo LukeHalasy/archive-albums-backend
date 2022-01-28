@@ -3,10 +3,13 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv').config()
 const session = require('express-session')
 const redis = require('redis')
+const cors = require('cors')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 
+console.log(process.env.NODE_ENV);
 const REDIS_URL = (process.env.NODE_ENV == "prod") ? process.env.REDIS_URL : "redis://redis:6379";
+console.log(REDIS_URL);
 const SESSION_SECRET = (process.env.NODE_ENV == "prod") ? process.env.SESSION_SECRET : "secret";
 
 var RedisStore = require('connect-redis')(session)
@@ -15,6 +18,7 @@ var redisClient = redis.createClient({
   url: REDIS_URL,
   legacyMode: true
 })
+
 
 redisClient.connect();
 
@@ -41,6 +45,8 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true}))
 app.use(methodOverride())
 
+app.enable("trust proxy");
+app.use(cors({}))
 app.use(session({
   store: new RedisStore({client: redisClient}),
   secret: SESSION_SECRET,
