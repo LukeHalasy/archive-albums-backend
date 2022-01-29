@@ -68,7 +68,7 @@ app.get('/api/v1', (req, res) => {
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/albums", albumsRouter);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`listening on port ${port}`))
 
 
