@@ -52,12 +52,14 @@ app.use(cors({
   methods: ['POST', 'PUT', 'GET'],
   credentials: true
 }))
+
 app.use(session({
   store: new RedisStore({client: redisClient}),
   secret: SESSION_SECRET,
   cookie: {
     secure: (process.env.NODE_ENV == "prod") ? true : false, // set to true in prod!
     resave: false,
+    httpOnly: true,
     saveUninitialized: true,
     maxAge: 6000000 // milliseconds
   } 

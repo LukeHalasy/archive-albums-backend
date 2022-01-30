@@ -75,3 +75,15 @@ exports.login = async(req, res) => {
     })
   }
 }
+
+exports.currentUser = async(req, res) => {
+  if (req.user) {
+    return res.status(200).json({
+      logged_in: true
+    })
+  } else {
+    return res.status(200).json({
+      logged_in: false
+    })
+  }
+}
