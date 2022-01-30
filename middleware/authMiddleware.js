@@ -1,5 +1,4 @@
 const protect = (req, res, next) => {
-  console.log("in middleware: " + req.query.listened);
   const {user} = req.session
 
   if (!user) {

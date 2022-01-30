@@ -47,16 +47,18 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true}))
 app.use(methodOverride())
 
-app.enable("trust proxy");
-app.use(cors({}))
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  methods: ['POST', 'PUT', 'GET'],
+  credentials: true
+}))
 app.use(session({
   store: new RedisStore({client: redisClient}),
   secret: SESSION_SECRET,
   cookie: {
     secure: (process.env.NODE_ENV == "prod") ? true : false, // set to true in prod!
     resave: false,
-    saveUninitialized: false,
-    httpOnly: true, 
+    saveUninitialized: true,
     maxAge: 6000000 // milliseconds
   } 
 }))

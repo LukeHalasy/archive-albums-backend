@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs")
 
 exports.addAlbum = async(req, res) => {
   try {
+    console.log("Req key " + req.session.user)
     // create the album 
     const album = await Album.create(req.body);
 

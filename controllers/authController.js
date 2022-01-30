@@ -44,6 +44,7 @@ exports.signUp = async(req, res) => {
 
 exports.login = async(req, res) => {
   const {username, password} = req.body;
+  console.log("Req key " + req.session.user)
 
   try {
     const user = await User.findOne({username})

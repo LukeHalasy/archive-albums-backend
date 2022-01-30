@@ -9,6 +9,7 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
+      - FRONTEND_URL=http://localhost:8080
     depends_on:
       - mongo
       - redis
