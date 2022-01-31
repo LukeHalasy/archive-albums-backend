@@ -44,7 +44,6 @@ exports.signUp = async(req, res) => {
 
 exports.login = async(req, res) => {
   const {username, password} = req.body;
-  console.log("Req key " + req.session.user)
 
   try {
     const user = await User.findOne({username})
@@ -69,6 +68,22 @@ exports.login = async(req, res) => {
         message: 'incorrect username or password'
       })
     }
+  } catch(e) {
+    res.status(400).json({
+      status: 'fail'
+    })
+  }
+}
+
+exports.logout = async(req, res) => {
+  try {
+    if (req.session) {
+      req.session.destroy(); 
+    }
+
+    res.status(200).json({
+      status: 'success'
+    })
   } catch(e) {
     res.status(400).json({
       status: 'fail'

@@ -49,7 +49,7 @@ app.use(methodOverride())
 
 app.use(cors({
   origin: process.env.FRONTEND_URL,
-  methods: ['POST', 'PUT', 'GET'],
+  methods: ['POST', 'PUT', 'GET', 'DELETE'],
   credentials: true
 }))
 
