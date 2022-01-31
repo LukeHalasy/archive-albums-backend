@@ -77,7 +77,7 @@ exports.login = async(req, res) => {
 }
 
 exports.currentUser = async(req, res) => {
-  if (req.user) {
+  if (req.session.user) {
     return res.status(200).json({
       logged_in: true
     })
