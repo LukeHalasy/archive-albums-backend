@@ -60,7 +60,9 @@ exports.login = async(req, res) => {
     if (isCorrect) {
       req.session.user = user;
       res.status(200).json({
-        status: 'success'
+        status: 'success',
+        username: req.session.user.username
+
       })
     } else {
       res.status(400).json({
@@ -94,7 +96,8 @@ exports.logout = async(req, res) => {
 exports.currentUser = async(req, res) => {
   if (req.session.user) {
     return res.status(200).json({
-      logged_in: true
+      logged_in: true,
+      username: res.session.user.username
     })
   } else {
     return res.status(200).json({
