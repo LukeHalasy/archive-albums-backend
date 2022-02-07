@@ -109,6 +109,10 @@ exports.searchAlbums = async(req, res) => {
     const result = await response.json(); 
     const albums = result.results.albummatches.album;
 
+    for (var i = 0; i < albums.length; i++) {
+      albums[i].image = albums[i].image[2]['#text'];
+    }
+
     res.status(200).json({
         status: 'success',
         albums: albums
