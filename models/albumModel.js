@@ -2,17 +2,17 @@ const mongoose = require("mongoose")
 require('mongoose-type-url')
 
 const albumSchema = new mongoose.Schema({
-  title: {
+  name: {
     type: String,
-    required: [true, "Album must have a title"]
+    required: [true, "Album must have a name"]
   },
   artist: {
     type: String,
-    required: [true, 'User must have a username'],
+    required: [true, 'Album must have an artist'],
   },
   image: {
     type: mongoose.SchemaTypes.Url,
-    required: false
+    required: [true, 'Album must have an image']
   },
   listened: {
     type: Boolean,

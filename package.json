@@ -30,6 +30,7 @@
     "method-override": "^3.0.0",
     "mongoose": "^6.1.8",
     "mongoose-type-url": "^2.1.0",
+    "node-fetch": "^2.6.7",
     "redis": "^4.0.2"
   },
   "devDependencies": {
