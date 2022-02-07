@@ -68,33 +68,13 @@ exports.getAlbums = async(req, res) => {
   try {
     console.log(req.params)
     console.log(req.user)
-    const listened = (req.query.listened) ? req.query.listened : 0; // default is not-listened
-    console.log(listened);
 
-    const albums = await Album.find({ _id: { $in: req.user.albums }, listened: listened });
+    const albums = await Album.find({ _id: { $in: req.user.albums } });
 
     res.status(200).json({
       status: 'success',
       albums: albums
     })
-  } catch(e) {
-    res.status(400).json({
-      status: 'fail'
-    })
-  }
-}
-
-
-exports.updateAlbumStatus = async(req, res) => {
-  try {
-    const album = await Album.findById(req.params.id)
-    album.listened = req.query.listened;
-    await album.save();
-
-    res.status(200).json({
-        status: 'success',
-        album: album
-    })   
   } catch(e) {
     res.status(400).json({
       status: 'fail'

@@ -13,12 +13,7 @@ const albumSchema = new mongoose.Schema({
   image: {
     type: mongoose.SchemaTypes.Url,
     required: [true, 'Album must have an image']
-  },
-  listened: {
-    type: Boolean,
-    required: true,
-    default: false
-  },
+  }
 }, {
   timestamps: true
 });
