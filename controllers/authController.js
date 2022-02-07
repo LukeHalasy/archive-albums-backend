@@ -22,12 +22,12 @@ exports.test = async(req, res) => {
 exports.signUp = async(req, res) => {
   console.log(req.body);
 
-  const {username, password} = req.body;
+  const {email, password} = req.body;
 
   try {
     const hashpassword = await bcrypt.hash(password, 12);
     const newUser = await User.create({
-      username,
+      email,
       password: hashpassword
     })
 
@@ -43,10 +43,10 @@ exports.signUp = async(req, res) => {
 }
 
 exports.login = async(req, res) => {
-  const {username, password} = req.body;
+  const {email, password} = req.body;
 
   try {
-    const user = await User.findOne({username})
+    const user = await User.findOne({email})
 
     if (!user) {
       return res.status(404).json({
@@ -61,13 +61,13 @@ exports.login = async(req, res) => {
       req.session.user = user;
       res.status(200).json({
         status: 'success',
-        username: req.session.user.username
+        email: req.session.user.email
 
       })
     } else {
       res.status(400).json({
         status: 'fail',
-        message: 'incorrect username or password'
+        message: 'incorrect email or password'
       })
     }
   } catch(e) {
@@ -97,7 +97,7 @@ exports.currentUser = async(req, res) => {
   if (req.session.user) {
     return res.status(200).json({
       logged_in: true,
-      username: req.session.user.username
+      email: req.session.user.email
     })
   } else {
     return res.status(200).json({
