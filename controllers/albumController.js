@@ -1,5 +1,6 @@
 const Album = require("../models/albumModel")
 const User = require("../models/userModel")
+const fetch = require("node-fetch")
 
 const bcrypt = require("bcryptjs")
 
@@ -94,6 +95,24 @@ exports.updateAlbumStatus = async(req, res) => {
         status: 'success',
         album: album
     })   
+  } catch(e) {
+    res.status(400).json({
+      status: 'fail'
+    })
+  }
+}
+
+// uses 3rd-Party API
+exports.searchAlbums = async(req, res) => {
+  try {
+    const response = await fetch(`http://ws.audioscrobbler.com/2.0/?method=album.search&album=${req.params.title}&api_key=${process.env.API_KEY}&format=json`);
+    const result = await response.json(); 
+    const albums = result.results.albummatches;
+
+    res.status(200).json({
+        status: 'success',
+        albums: albums
+    })
   } catch(e) {
     res.status(400).json({
       status: 'fail'

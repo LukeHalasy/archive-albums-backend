@@ -11,4 +11,7 @@ router.route("/deleteAll").delete(protect, albumController.deleteAll);
 router.route("/getAlbums").get(protect, albumController.getAlbums);
 router.route("/updateAlbumStatus/:id").patch(protect, albumController.updateAlbumStatus);
 
+// TODO: Change to protected
+router.route("/searchAlbums/:title").get(albumController.searchAlbums);
+
 module.exports = router;
