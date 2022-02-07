@@ -12,6 +12,6 @@ router.route("/getAlbums").get(protect, albumController.getAlbums);
 router.route("/updateAlbumStatus/:id").patch(protect, albumController.updateAlbumStatus);
 
 // TODO: Change to protected
-router.route("/searchAlbums/:title").get(albumController.searchAlbums);
+router.route("/searchAlbums/:title").get(protect, albumController.searchAlbums);
 
 module.exports = router;

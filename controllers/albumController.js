@@ -105,9 +105,9 @@ exports.updateAlbumStatus = async(req, res) => {
 // uses 3rd-Party API
 exports.searchAlbums = async(req, res) => {
   try {
-    const response = await fetch(`http://ws.audioscrobbler.com/2.0/?method=album.search&album=${req.params.title}&api_key=${process.env.API_KEY}&format=json`);
+    const response = await fetch(`http://ws.audioscrobbler.com/2.0/?method=album.search&album=${req.params.title}&limit=5&api_key=${process.env.API_KEY}&format=json`);
     const result = await response.json(); 
-    const albums = result.results.albummatches;
+    const albums = result.results.albummatches.album;
 
     res.status(200).json({
         status: 'success',
