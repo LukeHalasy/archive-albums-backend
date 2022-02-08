@@ -43,7 +43,7 @@ mongoose
   .catch((e) => console.log(e))
 
 
-app.enable('trust proxy');
+app.set('trust proxy', 1);
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true}))
 app.use(methodOverride())
@@ -59,7 +59,7 @@ app.use(session({
   store: new RedisStore({client: redisClient}),
   secret: SESSION_SECRET,
   cookie: {
-    secure: (process.env.NODE_ENV == "prod") ? false : true, // set to true in prod!
+    secure: (process.env.NODE_ENV == "prod") ? true : false, // set to true in prod!
     SameSite: 'none',
     resave: false,
     httpOnly: true,
