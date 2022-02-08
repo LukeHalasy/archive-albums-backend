@@ -33,6 +33,7 @@ exports.signUp = async(req, res) => {
 
     res.status(201).json({
       status: 'success',
+      email: email
     })
   } catch(e) {
     console.log(e)
