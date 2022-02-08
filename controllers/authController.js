@@ -20,14 +20,14 @@ exports.test = async(req, res) => {
 }
 
 exports.signUp = async(req, res) => {
-  console.log(req.body);
+  console.log("Sign up, " + req.body);
 
   const {email, password} = req.body;
 
   try {
     const hashpassword = await bcrypt.hash(password, 12);
     const newUser = await User.create({
-      email,
+      email: email,
       password: hashpassword
     })
 
@@ -97,6 +97,7 @@ exports.logout = async(req, res) => {
 }
 
 exports.currentUser = async(req, res) => {
+  console.log("Session: ", req.session);
   if (req.session.user) {
     return res.status(200).json({
       logged_in: true,

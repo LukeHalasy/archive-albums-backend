@@ -47,6 +47,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true}))
 app.use(methodOverride())
 
+console.log(process.env.FRONTEND_URL);
 app.use(cors({
   origin: process.env.FRONTEND_URL,
   methods: ['POST', 'PUT', 'GET', 'DELETE'],
