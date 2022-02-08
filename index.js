@@ -58,7 +58,7 @@ app.use(session({
   store: new RedisStore({client: redisClient}),
   secret: SESSION_SECRET,
   cookie: {
-    secure: (process.env.NODE_ENV == "prod") ? true : false, // set to true in prod!
+    secure: (process.env.NODE_ENV == "prod") ? false : false, // set to true in prod!
     resave: false,
     httpOnly: true,
     saveUninitialized: true,
