@@ -44,6 +44,7 @@ exports.signUp = async(req, res) => {
 
 exports.login = async(req, res) => {
   const {email, password} = req.body;
+  console.log('email, ' + email);
 
   try {
     const user = await User.findOne({email})
@@ -71,6 +72,7 @@ exports.login = async(req, res) => {
       })
     }
   } catch(e) {
+    console.log(e);
     res.status(400).json({
       status: 'fail'
     })
@@ -87,6 +89,7 @@ exports.logout = async(req, res) => {
       status: 'success'
     })
   } catch(e) {
+    console.log(e);
     res.status(400).json({
       status: 'fail'
     })
@@ -101,7 +104,8 @@ exports.currentUser = async(req, res) => {
     })
   } else {
     return res.status(200).json({
-      logged_in: false
+      logged_in: false,
+      email: ''
     })
   }
 }

@@ -76,6 +76,7 @@ exports.getAlbums = async(req, res) => {
       albums: albums
     })
   } catch(e) {
+    console.log(e);
     res.status(400).json({
       status: 'fail'
     })
@@ -98,6 +99,7 @@ exports.searchAlbums = async(req, res) => {
         albums: albums
     })
   } catch(e) {
+    console.log(e);
     res.status(400).json({
       status: 'fail'
     })
