@@ -43,6 +43,7 @@ mongoose
   .catch((e) => console.log(e))
 
 
+app.enable('trust proxy');
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true}))
 app.use(methodOverride())
