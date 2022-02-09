@@ -87,7 +87,10 @@ exports.getAlbums = async(req, res) => {
 exports.searchAlbums = async(req, res) => {
   try {
     const response = await fetch(`http://ws.audioscrobbler.com/2.0/?method=album.search&album=${req.params.title}&limit=5&api_key=${process.env.API_KEY}&format=json`);
+    console.log("Logging album search");
+    console.log(response);
     const result = await response.json(); 
+    console.log(result);
     const albums = result.results.albummatches.album;
 
     for (var i = 0; i < albums.length; i++) {
