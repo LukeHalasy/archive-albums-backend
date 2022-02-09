@@ -9,10 +9,19 @@ exports.addAlbum = async(req, res) => {
     console.log("Req key " + req.session.user)
     // create the album 
     const album = await Album.create(req.body);
-
+    // const user = await User.findById(req.session.user._id)
+    
+    await User.updateOne({ _id: req.user._id },
+      { $push: { 'albums': album._id }}
+    )
     // add the album to the authenticated users list
-    console.log(req.user);
+    /*console.log(req.user);
+    console.log(album);
     req.user.albums.push(album._id)
+    await req.user.save();
+    */
+
+    console.log(req.user.albums)
 
     res.status(201).json({
       status: 'success',

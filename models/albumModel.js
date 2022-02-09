@@ -12,7 +12,7 @@ const albumSchema = new mongoose.Schema({
   },
   image: {
     type: mongoose.SchemaTypes.Url,
-    required: [true, 'Album must have an image']
+    required: false
   }
 }, {
   timestamps: true
