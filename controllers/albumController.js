@@ -37,6 +37,7 @@ exports.addAlbum = async(req, res) => {
 
 exports.deleteAlbum = async(req, res) => {
   try {
+    console.log(req.params)
     const id = req.params.id
     const deletedPost = await Album.findByIdAndDelete(id)
 
