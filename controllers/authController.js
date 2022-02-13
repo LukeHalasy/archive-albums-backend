@@ -1,6 +1,7 @@
 const User = require("../models/userModel")
 
 const bcrypt = require("bcryptjs")
+const mongoose = require("mongoose")
 
 exports.test = async(req, res) => {
   console.log("called")
@@ -37,9 +38,19 @@ exports.signUp = async(req, res) => {
     })
   } catch(e) {
     console.log(e)
-    res.status(400).json({
-      status: 'fail'
-    })
+    for (name in e.errors) {
+      if (name == 'email') {
+        res.status(400).json({
+          message: 'Please enter a valid email.',
+          status: 'fail'
+        })  
+      } else {
+        res.status(400).json({
+          message: 'Failed to sign up.',
+          status: 'fail'
+        })  
+      }  
+    }
   }
 }
 
@@ -53,7 +64,7 @@ exports.login = async(req, res) => {
     if (!user) {
       return res.status(404).json({
         status: 'fail',
-        message: 'user not found'
+        message: 'user not found.'
       })
     }
 
@@ -69,7 +80,7 @@ exports.login = async(req, res) => {
     } else {
       res.status(400).json({
         status: 'fail',
-        message: 'incorrect email or password'
+        message: 'incorrect email or password.'
       })
     }
   } catch(e) {
