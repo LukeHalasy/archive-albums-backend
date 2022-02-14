@@ -82,11 +82,12 @@ exports.getAlbums = async(req, res) => {
     const user = await User.findById(req.user._id)
 
     const albums = await Album.find({ _id: { $in: user.albums } });
+
     console.log(albums)
 
     res.status(200).json({
       status: 'success',
-      albums: albums
+      albums: albums.reverse()
     })
   } catch(e) {
     console.log(e);
