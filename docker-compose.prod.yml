@@ -11,7 +11,7 @@ services:
   mongo:
     image: mongo
     volumes:
-      - mongo-db:/data/db
+      - mongo-db-prod:/data/db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=luke
       - MONGO_INITDB_ROOT_PASSWORD=luke
@@ -20,4 +20,4 @@ services:
     image: redis
 
 volumes:
-  mongo-db:
+  mongo-db-prod:
