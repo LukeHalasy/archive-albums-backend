@@ -49,11 +49,13 @@ app.use(bodyParser.urlencoded({ extended: true}))
 app.use(methodOverride())
 
 console.log(process.env.FRONTEND_URL);
-app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  methods: ['POST', 'PUT', 'GET', 'DELETE'],
-  credentials: true
-}))
+if (process.env.NODE_ENV != "prod") {
+  app.use(cors({
+    origin: process.env.FRONTEND_URL,
+    methods: ['POST', 'PUT', 'GET', 'DELETE'],
+    credentials: true
+  }))
+}
 
 app.use(session({
   store: new RedisStore({client: redisClient}),
